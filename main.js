@@ -1,10 +1,12 @@
-// add a uid for pages and folders id ? will avoid problems if duplicates
+// COMMENT : add a uid for pages and folders id ? will avoid problems if duplicates
 
+// this is for the tree display on page
 var treeDoc = new Tree(document.getElementById('tree'), {
   navigate: true // allow navigate with ArrowUp and ArrowDown
 });
 
 // we want to build an array of objects, one for each page and folder (type)
+// dataJSON is `contentIndex.json` 
 const tree = [];
 
 for (let path in dataJSON) {
@@ -26,7 +28,6 @@ for (let path in dataJSON) {
     name: pageTitle,
     type: 'page'
   })
-
 
   // if the page is in one or more folders
   crumb.forEach((folderId, level) => {
