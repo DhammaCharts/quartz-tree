@@ -4,6 +4,7 @@ var treeDoc = new Tree(document.getElementById('tree'), {
   navigate: true // allow navigate with ArrowUp and ArrowDown
 });
 
+// we want to build an array of objects, one for each page and folder (type)
 const tree = [];
 
 for (let path in dataJSON) {
@@ -18,6 +19,7 @@ for (let path in dataJSON) {
   if (parentFolderId == '') parentFolderId = 'ROOT';
   parentFolderId = '_' + parentFolderId + '_'; // added to distinguished from pageId
 
+  // we found a page
   tree.push({
     id: pageId,
     parentId: parentFolderId,
@@ -25,6 +27,8 @@ for (let path in dataJSON) {
     type: 'page'
   })
 
+
+  // if the page is in one or more folders
   crumb.forEach((folderId, level) => {
     let parentId = crumb[level - 1];
     if (parentId == '') {
@@ -32,6 +36,8 @@ for (let path in dataJSON) {
     } else {
       parentId = '_' + parentId + '_';
     }
+
+    // we found a folder
     const push = {
       id: '_' + folderId + '_',
       parentId: parentId,
@@ -40,6 +46,8 @@ for (let path in dataJSON) {
       type : Tree.FOLDER,
       level: level
     }
+
+    // avoid duplicates of folders
     if (folderId != '' && !tree.some(el => JSON.stringify(el) === JSON.stringify(push)))
       tree.push(push);
   });
