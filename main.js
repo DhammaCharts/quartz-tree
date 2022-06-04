@@ -35,7 +35,7 @@ for (let path in dataJSON) {
     const push = {
       id: '_' + folderId + '_',
       parentId: parentId,
-      name: folderId.replace('-', ' '),
+      name: folderId.replace(/-/g, ' '),
       // type: 'folder',
       type : Tree.FOLDER,
       level: level
